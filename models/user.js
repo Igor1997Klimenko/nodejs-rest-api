@@ -18,6 +18,9 @@ const userSchema = Schema({
     enum: ["starter", "pro", "business"],
     default: "starter"
   },
+  avatarURL: {
+    type: String,
+  },
   token: {
     type: String,
     default: null,
@@ -27,14 +30,14 @@ const userSchema = Schema({
 userSchema.post('save', handleSchemaValidationErrors);
 
 const signupSchema = Joi.object({
-    password: Joi.string().min(3).max(15).required(),
     email: Joi.string().email({ tlds: { allow: false } }).required(),
+    password: Joi.string().min(3).max(15).required(),
     repeat_password: Joi.ref('password'),
 });
 
 const loginSchema = Joi.object({
-  password: Joi.string().min(3).max(15).required(),
   email: Joi.string().email({ tlds: { allow: false } }).required(),
+  password: Joi.string().min(3).max(15).required(),
 });
 
 const schemas = {
